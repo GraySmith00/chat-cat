@@ -7,19 +7,21 @@ const _registerRoutes = (routes, method) => {
       routes[key] !== null &&
       !(routes[key] instanceof Array)
     ) {
-      registerRoutes(routes[key], key);
+      _registerRoutes(routes[key], key);
     } else {
       if (method === 'get') {
         router.get(key, routes[key]);
       } else if (method === 'post') {
         router.post(key, routes[key]);
+      } else {
+        router.use(routes[key]);
       }
     }
   }
 };
 
 let route = routes => {
-  _registerRoutes();
+  _registerRoutes(routes);
   return router;
 };
 
