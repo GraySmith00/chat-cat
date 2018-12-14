@@ -1,12 +1,11 @@
 const express = require('express');
 const app = express();
 
-app.get('/', (req, res, next) => {
-  res.json({ message: 'hey there' });
-});
+app.use(express.static('public'));
+app.set('view engine', 'ejs');
 
-app.get('/dashboard', (req, res, next) => {
-  res.json({ message: 'dash' });
+app.get('/', (req, res, next) => {
+  res.render('login', { pageTitle: 'My Login Page' });
 });
 
 const port = process.env.PORT || 3000;
