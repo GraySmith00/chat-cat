@@ -26,4 +26,15 @@ module.exports = (io, app) => {
       }
     });
   });
+
+  io.of('/chatter').on('connection', socket => {
+    // join a chatroom
+    socket.on('join', data => {
+      // add user to room
+      const usersList = h.addUserToRoom(allRooms, data, socket);
+
+      // update the list of active users as shown in the chatroom
+      console.log('usersList: ', usersList);
+    });
+  });
 };

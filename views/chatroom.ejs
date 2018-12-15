@@ -2,16 +2,24 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>ChatCat - Topic Goes Here</title>
+    <title>ChatCat - <%= room %></title>
     <link rel="stylesheet" href="/css/chatroomStyles.css" />
     <script src="/js/jquery-2.1.4.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script>
       $(() => {
         const socket = io('<%= host %>' + '/chatter');
-        let roomID = '<%= roomID %>';
-        let user = '<%= user.fullName %>';
-        let userPic = '<%= user.profilePic %>';
+        const roomID = '<%= roomID %>';
+        const user = '<%= user.fullName %>';
+        const userPic = '<%= user.profilePic %>';
+
+        socket.on('connect', () => {
+          socket.emit('join', {
+            roomID,
+            user,
+            userPic
+          });
+        });
       });
     </script>
   </head>
