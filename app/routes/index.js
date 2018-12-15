@@ -17,12 +17,23 @@ module.exports = () => {
           });
         }
       ],
-      '/chat': [
+      '/chat/:id': [
         h.isAuthenticated,
         (req, res, next) => {
+          // find a chatroom with the given id
+          // render room if the id is found
+          const foundRoom = h.findRoomById(
+            req.app.locals.chatrooms,
+            req.params.id
+          );
+
+          if (!foundRoom) return next();
+
           res.render('chatroom', {
             user: req.user,
-            host: config.host
+            host: config.host,
+            room: foundRoom.room,
+            roomID: foundRoom.roomID
           });
         }
       ],

@@ -92,6 +92,13 @@ const randomHex = () => {
   return crypto.randomBytes(24).toString('hex');
 };
 
+// find room by id
+const findRoomById = (allRooms, roomID) => {
+  return allRooms.find(room => {
+    return room.roomID === roomID;
+  });
+};
+
 module.exports = {
   route,
   findOne,
@@ -99,5 +106,6 @@ module.exports = {
   findById,
   isAuthenticated,
   findRoomByName,
-  randomHex
+  randomHex,
+  findRoomById
 };
