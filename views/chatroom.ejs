@@ -11,9 +11,9 @@
       <div class="titlePanel"><h1>ChatCAT | Topic Goes Here</h1></div>
       <div class="controls">
         <div class="userPicHolder">
-          <img src="./img/user.jpg" alt="John Doe" />
+          <img src="<%= user.profilePic %>" alt="John Doe" />
         </div>
-        <p class="userName">John Doe</p>
+        <p class="userName"><%= user.fullName %></p>
         <a href="rooms.htm" id="roomsBtn">Rooms</a>
         <a href="/logout" id="logOutBtn">Logout</a>
       </div>
@@ -22,7 +22,7 @@
           <div class="chatMessages">
             <!-- Loop this for chat messages -->
             <div class="chatBlock">
-              <div class="userPic"><img src="./img/user.jpg" /></div>
+              <div class="userPic"><img src="<%= user.profilePic %>" /></div>
               <div class="chatMsg">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                 Deleniti perferendis eius aut nesciunt necessitatibus ad nulla,

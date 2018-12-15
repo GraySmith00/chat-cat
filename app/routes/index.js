@@ -7,12 +7,18 @@ module.exports = () => {
       '/': (req, res, next) => {
         res.render('login');
       },
-      '/rooms': (req, res, next) => {
-        res.render('rooms', { user: req.user });
-      },
-      '/chat': (req, res, next) => {
-        res.render('chatroom');
-      },
+      '/rooms': [
+        h.isAuthenticated,
+        (req, res, next) => {
+          res.render('rooms', { user: req.user });
+        }
+      ],
+      '/chat': [
+        h.isAuthenticated,
+        (req, res, next) => {
+          res.render('chatroom', { user: req.user });
+        }
+      ],
       '/auth/facebook': passport.authenticate('facebook'),
       '/auth/facebook/callback': passport.authenticate('facebook', {
         successRedirect: '/rooms',
