@@ -9,7 +9,23 @@
     <script>
       $(() => {
         const socket = io('<%= host %>' + '/roomslist');
-        socket.on('connect', () => console.log('Connected to server!'));
+        let renderChatRooms = chatrooms => {
+          let listStr = '';
+          for (let cat of chatrooms) {
+            listStr += `<a href="/chat/${cat.roomID}"><li>${cat.room}</li></a>`;
+          }
+          $('#roomsListUL')
+            .html('')
+            .append(listStr);
+        };
+
+        // get a list of chatrooms
+        socket.emit('getChatRooms');
+
+        // event listener for chatRoomsList
+        socket.on('chatRoomsList', chatrooms => {
+          renderChatRooms(JSON.parse(chatrooms));
+        });
       });
     </script>
   </head>
@@ -36,8 +52,7 @@
       <div class="roomsListDiv">
         <ul class="roomsList" id="roomsListUL">
           <!-- Loop list items here -->
-          <a href="chatroom.htm"><li>World Cuisine</li></a>
-          <a href="chatroom.htm"><li>Coffee and Conversations</li></a>
+
           <!-- Loop ends -->
         </ul>
       </div>
