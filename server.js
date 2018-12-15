@@ -12,6 +12,6 @@ app.use(passport.session());
 app.use('/', chatCat.router);
 
 const port = process.env.PORT || 3000;
-app.listen(port, () => {
+chatCat.ioServer(app).listen(port, () => {
   console.log(`ChatCAT running on port ${port}`);
 });
