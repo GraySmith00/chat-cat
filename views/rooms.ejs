@@ -9,6 +9,8 @@
     <script>
       $(() => {
         const socket = io('<%= host %>' + '/roomslist');
+        const newRoomInput = $("input[name='roomName']");
+
         let renderChatRooms = chatrooms => {
           let listStr = '';
           for (let cat of chatrooms) {
@@ -25,6 +27,13 @@
         // event listener for chatRoomsList
         socket.on('chatRoomsList', chatrooms => {
           renderChatRooms(JSON.parse(chatrooms));
+        });
+
+        $('#createBtn').on('click', () => {
+          if (newRoomInput.val() !== '') {
+            socket.emit('createNewRoom', newRoomInput.val());
+            newRoomInput.val('');
+          }
         });
       });
     </script>
