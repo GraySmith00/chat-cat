@@ -5,6 +5,7 @@ const chatCat = require('./app');
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
 
+app.use(chatCat.session);
 app.use('/', chatCat.router);
 
 const port = process.env.PORT || 3000;
