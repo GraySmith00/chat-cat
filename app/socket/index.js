@@ -40,5 +40,14 @@ module.exports = (io, app) => {
 
       socket.emit('updateUsersList', JSON.stringify(usersList.users));
     });
+
+    // when a socket exits
+    socket.on('disconnect', () => {
+      // find the room to which the socket is connected and purge the user
+      const room = h.removeUserFromRoom(allRooms, socket);
+      socket.broadcast
+        .to(room.roomID)
+        .emit('updateUsersList', JSON.stringify(room.users));
+    });
   });
 };
