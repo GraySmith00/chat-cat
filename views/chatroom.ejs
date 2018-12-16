@@ -20,6 +20,28 @@
             userPic
           });
         });
+
+        const userList = user => {
+          return `
+        <div class="userBlock">
+          <div class="userPic">
+            <img src="${user.userPic}" alt="${user.user}" />
+          </div>
+          <div class="cuserName">${user.user}</div>
+        </div>
+        `;
+        };
+
+        socket.on('updateUsersList', data => {
+          const parsedData = JSON.parse(data);
+          let usersListData = '';
+          for (let user of parsedData) {
+            usersListData += userList(user);
+          }
+          $('.chatUsers')
+            .html('')
+            .html(usersListData);
+        });
       });
     </script>
   </head>
@@ -60,12 +82,7 @@
         </div>
         <div class="chatUsers">
           <!-- Loop this for chat users -->
-          <div class="userBlock">
-            <div class="userPic">
-              <img src="<%= user.profilePic %>" alt="John Doe" />
-            </div>
-            <div class="cuserName"><%= user.fullName %></div>
-          </div>
+
           <!-- loop end -->
         </div>
       </div>
