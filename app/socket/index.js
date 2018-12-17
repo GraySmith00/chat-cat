@@ -49,5 +49,10 @@ module.exports = (io, app) => {
         .to(room.roomID)
         .emit('updateUsersList', JSON.stringify(room.users));
     });
+
+    // when a new message arrives
+    socket.on('newMessage', data => {
+      socket.to(data.roomID).emit('inMessage', JSON.stringify(data));
+    });
   });
 };
